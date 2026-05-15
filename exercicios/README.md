@@ -20,6 +20,8 @@
 | 9 | [Demultiplexador 1:8](#atividade-9---demultiplexador-18) | `atividade_09_demux.vhd` | CASE, PROCESS |
 | 10 | [LatchEn](#atividade-10---latchen) | `atividade_10_latchen.vhd`, `atividade_10_portand.vhd`, `atividade_10_latchd.vhd` | COMPONENT, Latch D |
 | 11 | [Unidade_A](#atividade-11---unidade_a) | `atividade_11_unidade_a.vhd`, `atividade_11_portand3.vhd` | COMPONENT, sinais internos |
+| 12 | [PWM em LED](#atividade-12---pwm-em-led) | `atividade_12_pwm_led.vhd` | PWM, contador, numeric_std, WITH...SELECT |
+| 13 | [PWM Servo Motor](#atividade-13---pwm-servo-motor) | `atividade_13_pwm_servo.vhd` | PWM 50 Hz, aritmetica com unsigned |
 
 ---
 
@@ -161,3 +163,43 @@
 **Arquivos:**
 - `atividade_11_portand3.vhd` — porta AND de 3 entradas
 - `atividade_11_unidade_a.vhd` — Unidade_A
+
+---
+
+## Atividade 12 - PWM em LED
+
+**Enunciado:** Implementar um modulo PWM (Pulse Width Modulation) que controla o brilho de um LED. O nivel de brilho e selecionado por 2 chaves (sel), com 4 niveis pre-definidos:
+
+| sel  | Duty cycle | Brilho       |
+|------|-----------:|--------------|
+| "00" |       0%   | Apagado      |
+| "01" |      25%   | Baixo        |
+| "10" |      50%   | Medio        |
+| "11" |      75%   | Alto         |
+
+**Entradas:** clk, rst, sel (2 bits)
+**Saida:** led (std_logic)
+**Tecnica:** contador livre de 8 bits, comparacao com duty, WITH...SELECT, pacote `numeric_std`.
+
+**Arquivo:** `atividade_12_pwm_led.vhd`
+
+---
+
+## Atividade 13 - PWM Servo Motor
+
+**Enunciado:** Gerar um sinal PWM padrao para servo motores hobby:
+- Periodo de 20 ms (50 Hz)
+- Largura de pulso entre 1 ms (0 graus) e 2 ms (180 graus)
+- Posicao discreta selecionada por 3 chaves (8 posicoes)
+
+Considerando clock de 50 MHz:
+- Periodo = 1.000.000 ciclos (contador de 20 bits)
+- Pulso minimo (1 ms) = 50.000 ciclos
+- Pulso maximo (2 ms) = 100.000 ciclos
+- Passo entre posicoes ~= 7.143 ciclos
+
+**Entradas:** clk, rst, pos (3 bits, 0 a 7)
+**Saida:** servo (std_logic)
+**Tecnica:** contador com reset no fim do periodo, aritmetica `unsigned`, multiplicacao por constante.
+
+**Arquivo:** `atividade_13_pwm_servo.vhd`

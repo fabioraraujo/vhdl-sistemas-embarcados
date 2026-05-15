@@ -20,7 +20,9 @@ scripts/
 │   ├── 06_componentes_aoi.vhd         -- Declaracao de componentes (AOI)
 │   ├── 07_reg_sincrono.vhd            -- Registrador sincrono
 │   ├── 08_reg_assincrono.vhd          -- Registrador assincrono
-│   └── 09_flip_flop_d.vhd             -- Flip-Flop D (3 formas)
+│   ├── 09_flip_flop_d.vhd             -- Flip-Flop D (3 formas)
+│   ├── 10_pwm_basico.vhd              -- PWM com duty cycle fixo
+│   └── 11_pwm_duty_variavel.vhd       -- PWM com duty variavel
 ├── exercicios/
 │   ├── README.md                      -- Indice e enunciados das atividades
 │   ├── atividade_01_expressoes.vhd    -- Expressoes booleanas
@@ -39,12 +41,14 @@ scripts/
 │   ├── atividade_10_latchd.vhd        -- Componente Latch D
 │   ├── atividade_10_latchen.vhd       -- LatchEn
 │   ├── atividade_11_portand3.vhd      -- Componente AND 3 entradas
-│   └── atividade_11_unidade_a.vhd     -- Unidade_A
+│   ├── atividade_11_unidade_a.vhd     -- Unidade_A
+│   ├── atividade_12_pwm_led.vhd       -- PWM com brilho de LED (4 niveis)
+│   └── atividade_13_pwm_servo.vhd     -- PWM para servo motor (50 Hz)
 ```
 
 ## Guia de VHDL
 
-O [guia/](guia/) contem um guia completo de VHDL com teoria e 9 exemplos praticos cobrindo:
+O [guia/](guia/) contem um guia completo de VHDL com teoria e 11 exemplos praticos cobrindo:
 
 1. O que e VHDL e sua historia
 2. Niveis de abstracao
@@ -57,10 +61,11 @@ O [guia/](guia/) contem um guia completo de VHDL com teoria e 9 exemplos pratico
 9. Declaracao de componentes e PORT MAP
 10. Circuitos sincronos e assincronos
 11. Flip-Flop D
+12. PWM (Pulse Width Modulation)
 
 ## Exercicios Resolvidos
 
-O [exercicios/](exercicios/) contem a resolucao das 11 atividades praticas da disciplina:
+O [exercicios/](exercicios/) contem a resolucao das 13 atividades praticas da disciplina:
 
 | # | Atividade | Conceitos Principais |
 |---|-----------|---------------------|
@@ -75,3 +80,5 @@ O [exercicios/](exercicios/) contem a resolucao das 11 atividades praticas da di
 | 9 | Demultiplexador 1:8 | CASE |
 | 10 | LatchEn | Reuso de componentes |
 | 11 | Unidade_A | AND de 3 entradas |
+| 12 | PWM em LED | PWM, contador, numeric_std |
+| 13 | PWM Servo Motor | PWM 50 Hz, aritmetica unsigned |

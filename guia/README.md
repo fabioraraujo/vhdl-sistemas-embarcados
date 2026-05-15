@@ -321,6 +321,63 @@ END BLOCK bloco;
 
 ---
 
+## 12. PWM (Pulse Width Modulation)
+
+**PWM** e uma tecnica que codifica informacao analogica em um sinal digital atraves da variacao da largura de pulso. O sinal alterna entre '1' e '0' com periodo fixo, e o tempo em '1' (largura de pulso) define o valor medio do sinal.
+
+### 12.1 Conceitos
+
+- **Periodo (T):** duracao de um ciclo completo do sinal.
+- **Frequencia (f):** f = 1 / T.
+- **Largura de pulso (Ton):** tempo em que o sinal fica em '1'.
+- **Duty cycle:** D = Ton / T, expresso em porcentagem (0% a 100%).
+- **Valor medio:** Vmedio = D x Vcc.
+
+### 12.2 Aplicacoes
+
+- Controle de brilho de LEDs.
+- Controle de velocidade de motores DC.
+- Controle de posicao de servo motores.
+- Conversao D/A (com filtro RC passa-baixa).
+- Geracao de audio simples.
+
+### 12.3 Implementacao em VHDL
+
+A forma mais comum e usar um **contador livre** comparado com um valor de **duty**:
+
+```vhdl
+PROCESS(clk)
+BEGIN
+    IF rising_edge(clk) THEN
+        contador <= contador + 1;
+    END IF;
+END PROCESS;
+
+pwm_out <= '1' WHEN contador < duty ELSE '0';
+```
+
+- A **resolucao** do PWM e dada pela largura do contador. Um contador de N bits fornece 2^N niveis de duty.
+- A **frequencia** do PWM e: f_pwm = f_clk / 2^N.
+
+Exemplo: clock de 50 MHz e contador de 8 bits -> f_pwm = 50.000.000 / 256 ~ 195 kHz.
+
+### 12.4 Tipos numericos: numeric_std
+
+Para contadores e operacoes aritmeticas, use o pacote `ieee.numeric_std`:
+
+```vhdl
+USE ieee.numeric_std.ALL;
+
+SIGNAL cnt : unsigned(7 DOWNTO 0);
+cnt <= cnt + 1;                          -- soma direta
+cnt <= to_unsigned(64, 8);               -- conversao de inteiro
+saida <= '1' WHEN cnt < unsigned(duty) ELSE '0';
+```
+
+> Veja os exemplos em [10_pwm_basico.vhd](10_pwm_basico.vhd) e [11_pwm_duty_variavel.vhd](11_pwm_duty_variavel.vhd).
+
+---
+
 ## Exemplos do Guia
 
 | Arquivo | Descricao |
@@ -334,3 +391,5 @@ END BLOCK bloco;
 | [07_reg_sincrono.vhd](07_reg_sincrono.vhd) | Registrador sincrono (borda de subida) |
 | [08_reg_assincrono.vhd](08_reg_assincrono.vhd) | Registrador assincrono |
 | [09_flip_flop_d.vhd](09_flip_flop_d.vhd) | Flip-Flop D (wait until, when else, block) |
+| [10_pwm_basico.vhd](10_pwm_basico.vhd) | PWM basico com duty cycle fixo (25%) |
+| [11_pwm_duty_variavel.vhd](11_pwm_duty_variavel.vhd) | PWM com duty cycle variavel via entrada |
